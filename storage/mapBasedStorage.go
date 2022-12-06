@@ -21,7 +21,10 @@ func New[K comparable, V any](capacity int) *MapBasedStorage[K, V] {
 func (ms *MapBasedStorage[K, V]) Add(key K, value V) error {
 
 	if ms.isStorageFull() {
-		return errors.New("capacity full")
+
+		if _, ok := ms.mapper[key]; !ok {
+			return errors.New("capacity full")
+		}
 	}
 	ms.mapper[key] = value
 	return nil
