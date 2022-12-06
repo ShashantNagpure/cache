@@ -1,16 +1,22 @@
 package main
 
-import (
-	"cache/storage"
-)
+import "cache/cache"
 
 func main() {
 
-	hms := storage.New[string, int](5)
+	cache := cache.New[string, int](3)
 
-	hms.Add("5", 5)
-	hms.Add("4", 4)
+	cache.Put("1", 1)
+	cache.Put("2", 2)
 
-	a, _ := hms.Get("2")
-	println(a)
+	v, _ := cache.Get("1")
+	println(v)
+
+	cache.Put("3", 3)
+
+	cache.Put("4", 4)
+
+	_, err := cache.Get("2")
+	println(err.Error())
+
 }

@@ -20,7 +20,7 @@ func New[K comparable, V any](capacity int) *Cache[K, V] {
 	}
 }
 
-func (cache *Cache[K, V]) put(key K, value V) error {
+func (cache *Cache[K, V]) Put(key K, value V) error {
 
 	err := cache.storage.Add(key, value)
 	if err != nil {
@@ -31,13 +31,13 @@ func (cache *Cache[K, V]) put(key K, value V) error {
 		}
 		println(fmt.Sprintf("evicted %v", evictedKey))
 
-		return cache.put(key, value)
+		return cache.Put(key, value)
 	}
 	cache.eviction.KeyAccessed(key)
 	return nil
 }
 
-func (cache *Cache[K, V]) get(key K) (V, error) {
+func (cache *Cache[K, V]) Get(key K) (V, error) {
 	value, err := cache.storage.Get(key)
 	if err == nil {
 		cache.eviction.KeyAccessed(key)
