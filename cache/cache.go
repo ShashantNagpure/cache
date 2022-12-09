@@ -12,10 +12,10 @@ type Cache[K any, V any] struct {
 	storage  storage.Storage[K, V]
 }
 
-func New[K comparable, V any](capacity int) *Cache[K, V] {
+func New[K comparable, V any](capacity int, eviction eviction.Eviction[K]) *Cache[K, V] {
 
 	return &Cache[K, V]{
-		eviction: eviction.New[K](),
+		eviction: eviction,
 		storage:  storage.New[K, V](capacity),
 	}
 }

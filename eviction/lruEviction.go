@@ -8,7 +8,7 @@ type LRUEviction[K comparable] struct {
 	mapper map[K]*lib.Node[K]
 }
 
-func New[K comparable]() *LRUEviction[K] {
+func NewLRUPolicy[K comparable]() *LRUEviction[K] {
 
 	return &LRUEviction[K]{
 		doublyLinkedList: lib.NewtDoublyList[K](),
